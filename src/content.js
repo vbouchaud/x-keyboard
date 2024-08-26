@@ -179,7 +179,9 @@ const nonIcon = { x: 0.25, 'text-anchor': 'start' };
 const modRect = {
   width: 0.55, height: 0.55, y: 0.45, rx: 2, ry: 2,
 };
-const modText = { y: 0.80, x: 0.275, 'text-anchor': 'middle' };
+const modText = {
+  y: 0.80, x: 0.275, 'text-anchor': 'middle',
+};
 
 const numberRow = g('left', [
   gKey('specialKey', 'l5', 0, 'Escape', [
@@ -275,38 +277,38 @@ const letterRow2 = g('left', [
     text('英数', 'jis', { x: 0.45 }), // alphanumeric (eisū)
   ]),
   gKey('letterKey homeKey', 'l5',  1.75, 'KeyA'),
-  gKey('letterKey homeKey', 'l4',  2.75, 'KeyS', [
-    emptyKey,
-    rect('dualKey', modRect),
-    text('⌘',     'voyager mod meta', modText),
+  gKey('letterKey homeKey', 'l4',  2.75, 'KeyS'),
+  gKey('specialKey dualKey', 'l4',  2.75, 'MetaLeft', [
+    rect('voyager meta', modRect),
+    text('⌘',     'voyager meta', modText),
   ]),
-  gKey('letterKey homeKey', 'l3',  3.75, 'KeyD', [
-    emptyKey,
-    rect('dualKey', modRect),
-    text('⌥',     'voyager mod alt', modText),
+  gKey('letterKey homeKey', 'l3',  3.75, 'KeyD'),
+  gKey('specialKey dualKey', 'l3',  3.75, 'AltLeft', [
+    rect('voyager alt', modRect),
+    text('⌥',     'voyager alt', modText),
   ]),
-  gKey('letterKey homeKey', 'l2',  4.75, 'KeyF', [
-    emptyKey,
-    rect('dualKey', modRect),
-    text('⌃',     'voyager mod ctrl', modText),
+  gKey('letterKey homeKey', 'l2',  4.75, 'KeyF'),
+  gKey('specialKey dualKey', 'l2',  4.75, 'ControlLeft', [
+    rect('voyager ctrl', modRect),
+    text('⌃',     'voyager ctrl', modText),
   ]),
   gKey('letterKey',         'l2',  5.75, 'KeyG'),
 ]) + g('right', [
   gKey('letterKey',         'r2',  6.75, 'KeyH'),
-  gKey('letterKey homeKey', 'r2',  7.75, 'KeyJ', [
-    emptyKey,
-    rect('dualKey', modRect),
-    text('⌃',     'voyager mod ctrl', modText),
+  gKey('letterKey homeKey', 'r2',  7.75, 'KeyJ'),
+  gKey('specialKey dualKey', 'r2',  7.75, 'ControlRight', [
+    rect('voyager ctrl', modRect),
+    text('⌃',     'voyager ctrl', modText),
   ]),
-  gKey('letterKey homeKey', 'r3',  8.75, 'KeyK', [
-    emptyKey,
-    rect('dualKey alt', modRect),
-    text('⌥',     'voyager mod alt', modText),
+  gKey('letterKey homeKey', 'r3',  8.75, 'KeyK'),
+  gKey('specialKey dualKey', 'r3',  8.75, 'AltRight', [
+    rect('voyager alt', modRect),
+    text('⌥',     'voyager alt', modText),
   ]),
-  gKey('letterKey homeKey', 'r4',  9.75, 'KeyL', [
-    emptyKey,
-    rect('dualKey', modRect),
-    text('⌘',     'voyager mod meta', modText),
+  gKey('letterKey homeKey', 'r4',  9.75, 'KeyL'),
+  gKey('specialKey dualKey', 'r4',  9.75, 'MetaRight', [
+    rect('voyager meta', modRect),
+    text('⌘',     'voyager meta', modText),
   ]),
   gKey('letterKey homeKey', 'r5', 10.75, 'Semicolon'),
   gKey('pinkyKey',          'r5', 11.75, 'Quote'),

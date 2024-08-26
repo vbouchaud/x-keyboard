@@ -140,9 +140,17 @@ const splitGeometry = `
   { display: block; }
 
   .voyager #row_AD .left .specialKey .voyager ${translate(0.50)}
-  .voyager #row_AC .left .specialKey .voyager ${translate(0.75)}
-f  .voyager #Backslash ${translate(11.5)}
+  // .voyager #row_AC .left .specialKey .voyager ${translate(0.75)}
 
+  .voyager #row_AC #MetaLeft ${translate(2.75, -0.2)}
+  .voyager #row_AC #AltLeft ${translate(3.75, -0.4)}
+  .voyager #row_AC #ControlLeft ${translate(4.75, -0.2)}
+
+  .voyager #row_AC #ControlRight ${translate(7.75, -0.2)}
+  .voyager #row_AC #AltRight ${translate(8.75, -0.4)}
+  .voyager #row_AC #MetaRight ${translate(9.75, -0.2)}
+
+  .voyager #CapsLock ${translate(0.75)}
   .voyager #ShiftLeft ${translate(1.25)}
 
   .voyager #Digit2 ${translate(2, -0.2)}
@@ -189,36 +197,31 @@ f  .voyager #Backslash ${translate(11.5)}
   .split .left         ${translate(-1)}
   .split .right        ${translate(1)}
 
-  .mod {
-    fill: #eee;
-    font-size: 14px
-  }
-
   .layer {
     fill: brown;
     font-size: 14px
   }
-
   .layerKey {
     fill: #e83
   }
 
-  .dualKey {
-    fill: #666;
+
+  .voyager .dualKey rect.voyager { fill: #666; }
+
+  .voyager .dualKey text.voyager {
+    fill: #eee;
+    font-size: 14px
   }
 
-  .voyager .right .dualKey.alt {
-    fill: #77d
-  }
+  .voyager #AltRight text { fill: navy; }
+  .voyager #AltRight rect { fill: #77d; }
 
-  .voyager .right .mod.alt {
-    fill: navy
-  }
+  .voyager #AltRight.press rect,
+  .voyager .dualKey.press rect.voyager { fill: #558; }
+  .voyager #AltRight.press text,
+  .voyager .dualKey.press text.voyager { fill: #bbb; }
 
-  .voyager .layer,
-  .voyager .layerKey,
-  .voyager .mod,
-  .voyager .dualKey {
+  .voyager .dualKey .voyager {
     display: block;
   }
 
