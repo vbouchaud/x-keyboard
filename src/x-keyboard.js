@@ -107,6 +107,7 @@ class Keyboard extends HTMLElement {
       ol60: 'ergo ol60',
       ol50: 'ergo ol50',
       ol40: 'ergo ol40',
+      voyager: 'split zsa voyager',
     };
     if (value && !(value in supportedShapes)) {
       return;

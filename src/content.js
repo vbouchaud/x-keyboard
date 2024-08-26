@@ -157,7 +157,7 @@ export function drawDK(element, keyMap, deadKey) {
       element.classList.remove('deadKey', 'diacritic');
       element.textContent = content || '';
     }
-  }
+  };
 
   const keyChars = keyMap[element.parentNode.id];
   if (!keyChars) return;
@@ -174,11 +174,19 @@ export function drawDK(element, keyMap, deadKey) {
  * https://www.w3.org/TR/uievents-code/
  * https://commons.wikimedia.org/wiki/File:Physical_keyboard_layouts_comparison_ANSI_ISO_KS_ABNT_JIS.png
  */
+const nonIcon = { x: 0.25, 'text-anchor': 'start' };
+
+const modRect = {
+  width: 0.55, height: 0.55, y: 0.45, rx: 2, ry: 2,
+};
+const modText = { y: 0.80, x: 0.275, 'text-anchor': 'middle' };
 
 const numberRow = g('left', [
   gKey('specialKey', 'l5', 0, 'Escape', [
     rect('ergo', { width: 1.25 }),
+    rect('voyager'),
     text('⎋', 'ergo'),
+    text('⎋', 'voyager'),
   ]),
   gKey('pinkyKey', 'l5', 0, 'Backquote', [
     rect('specialKey jis', { width: 1 }),
@@ -201,6 +209,10 @@ const numberRow = g('left', [
   gKey('numberKey',  'r4',  9, 'Digit9'),
   gKey('numberKey',  'r5', 10, 'Digit0'),
   gKey('pinkyKey',   'r5', 11, 'Minus'),
+  gKey('specialKey', 'r5', 11, 'Delete', [
+    rect('voyager'),
+    text('⌦', 'voyager'),
+  ]),
   gKey('pinkyKey',   'r5', 12, 'Equal', [
     rect('ansi', { width: 1.00 }),
     rect('ol60', { width: 1.25 }),
@@ -221,8 +233,9 @@ const numberRow = g('left', [
 const letterRow1 = g('left', [
   gKey('specialKey', 'l5', 0, 'Tab', [
     rect('', { width: 1.5 }),
+    rect('voyager'),
     rect('ergo', { width: 1.25 }),
-    text('↹'),
+    text('↹', 'voyager'),
     text('↹', 'ergo'),
   ]),
   gKey('letterKey', 'l5', 1.5, 'KeyQ'),
@@ -237,6 +250,10 @@ const letterRow1 = g('left', [
   gKey('letterKey', 'r4',  9.5, 'KeyO'),
   gKey('letterKey', 'r5', 10.5, 'KeyP'),
   gKey('pinkyKey',  'r5', 11.5, 'BracketLeft'),
+  gKey('specialKey', 'r5', 11.5, 'Backspace', [
+    rect('voyager'),
+    text('⌫', 'voyager'),
+  ]),
   gKey('pinkyKey',  'r5', 12.5, 'BracketRight', [
     rect('ansi', { width: 1.00 }),
     rect('ol60', { width: 1.25 }),
@@ -251,22 +268,52 @@ const letterRow1 = g('left', [
 
 const letterRow2 = g('left', [
   gKey('specialKey', 'l5', 0, 'CapsLock', [
+    rect('voyager'),
     rect('', { width: 1.75 }),
+    text('⇪', 'voyager'),
     text('⇪', 'ansi'),
     text('英数', 'jis', { x: 0.45 }), // alphanumeric (eisū)
   ]),
   gKey('letterKey homeKey', 'l5',  1.75, 'KeyA'),
-  gKey('letterKey homeKey', 'l4',  2.75, 'KeyS'),
-  gKey('letterKey homeKey', 'l3',  3.75, 'KeyD'),
-  gKey('letterKey homeKey', 'l2',  4.75, 'KeyF'),
+  gKey('letterKey homeKey', 'l4',  2.75, 'KeyS', [
+    emptyKey,
+    rect('dualKey', modRect),
+    text('⌘',     'voyager mod meta', modText),
+  ]),
+  gKey('letterKey homeKey', 'l3',  3.75, 'KeyD', [
+    emptyKey,
+    rect('dualKey', modRect),
+    text('⌥',     'voyager mod alt', modText),
+  ]),
+  gKey('letterKey homeKey', 'l2',  4.75, 'KeyF', [
+    emptyKey,
+    rect('dualKey', modRect),
+    text('⌃',     'voyager mod ctrl', modText),
+  ]),
   gKey('letterKey',         'l2',  5.75, 'KeyG'),
 ]) + g('right', [
   gKey('letterKey',         'r2',  6.75, 'KeyH'),
-  gKey('letterKey homeKey', 'r2',  7.75, 'KeyJ'),
-  gKey('letterKey homeKey', 'r3',  8.75, 'KeyK'),
-  gKey('letterKey homeKey', 'r4',  9.75, 'KeyL'),
+  gKey('letterKey homeKey', 'r2',  7.75, 'KeyJ', [
+    emptyKey,
+    rect('dualKey', modRect),
+    text('⌃',     'voyager mod ctrl', modText),
+  ]),
+  gKey('letterKey homeKey', 'r3',  8.75, 'KeyK', [
+    emptyKey,
+    rect('dualKey alt', modRect),
+    text('⌥',     'voyager mod alt', modText),
+  ]),
+  gKey('letterKey homeKey', 'r4',  9.75, 'KeyL', [
+    emptyKey,
+    rect('dualKey', modRect),
+    text('⌘',     'voyager mod meta', modText),
+  ]),
   gKey('letterKey homeKey', 'r5', 10.75, 'Semicolon'),
   gKey('pinkyKey',          'r5', 11.75, 'Quote'),
+  gKey('specialKey',        'r5', 11.75, 'Enter', [
+    rect('voyager'),
+    text('⏎', 'voyager'),
+  ]),
   gKey('specialKey',        'r5', 12.75, 'Enter', [
     path('alt', altEnterPath),
     path('iso', isoEnterPath),
@@ -280,11 +327,13 @@ const letterRow2 = g('left', [
 
 const letterRow3 = g('left', [
   gKey('specialKey', 'l5', 0, 'ShiftLeft', [
+    rect('voyager'),
     rect('ansi alt',  { width: 2.25 }),
     rect('iso',       { width: 1.25 }),
     rect('ol50 ol60', { width: 1.25, height: 2, y: -1 }),
     rect('ol40',      { width: 1.25 }),
     text('⇧'),
+    text('⇧', 'voyager'),
     text('⇧', 'ergo'),
   ]),
   gKey('letterKey', 'l5', 1.25, 'IntlBackslash'),
@@ -301,17 +350,18 @@ const letterRow3 = g('left', [
   gKey('letterKey',  'r5', 11.25, 'Slash'),
   gKey('pinkyKey',   'r5', 12.25, 'IntlRo'),
   gKey('specialKey', 'r5', 12.25, 'ShiftRight', [
+    rect('voyager'),
     rect('ansi',      { width: 2.75 }),
     rect('abnt',      { width: 1.75,  x: 1 }),
     rect('ol50 ol60', { width: 1.25, height: 2, y: -1 }),
     rect('ol40',      { width: 1.25 }),
     text('⇧', 'ansi'),
+    text('⇧', 'voyager'),
     text('⇧', 'ergo'),
     text('⇧', 'abnt', { translateX: 1 }),
   ]),
 ]);
 
-const nonIcon = { x: 0.25, 'text-anchor': 'start' };
 const baseRow = g('left', [
   gKey('specialKey', 'l5', 0, 'ControlLeft', [
     rect('', { width: 1.25 }),
@@ -340,6 +390,16 @@ const baseRow = g('left', [
     rect(),
     text('無変換', '', { x: 0.5 }), // muhenkan
   ]),
+  gKey('letterKey', 'l1', 5, 'Space', [
+    rect('voyager'),
+    text('⎵', 'voyager', { y: 0.3 }),
+    rect('layerKey', { ...modRect, width: 1.00 }),
+    text('Num',     'voyager layer', { ...modText, 'text-anchor': 'start' }),
+  ]),
+  gKey('specialKey', 'l1', 6, 'Enter', [
+    rect('voyager', { width: 1.00, height: 1.30 }),
+    text('⏎', 'voyager'),
+  ]),
 ]) + gKey('homeKey', 'm1', 3.75, 'Space', [
   rect('ansi',      { width: 6.25 }),
   rect('ol60',      { width: 5.50, x: -1 }),
@@ -347,6 +407,16 @@ const baseRow = g('left', [
   rect('ks',        { width: 4.25, x: 1 }),
   rect('jis',       { width: 3.25, x: 1 }),
 ]) + g('right', [
+  gKey('specialKey', 'r1', 7, 'Backspace', [
+    rect('voyager', { width: 1.00, height: 1.30 }),
+    text('⌫', 'voyager'),
+  ]),
+  gKey('letterKey', 'r1', 8, 'Space', [
+    rect('voyager'),
+    text('⎵', 'voyager', { y: 0.3 }),
+    rect('layerKey', { ...modRect, width: 1.00 }),
+    text('Sys',     'voyager layer', { ...modText, 'text-anchor': 'start' }),
+  ]),
   gKey('specialKey', 'r1', 8.00, 'Convert', [
     rect(),
     text('変換', '', { x: 0.5 }), // henkan
@@ -389,7 +459,7 @@ const baseRow = g('left', [
 ]);
 
 export const svgContent = `
-  <svg viewBox="0 0 ${KEY_WIDTH * 15} ${KEY_WIDTH * 5}"
+  <svg viewBox="0 0 ${KEY_WIDTH * 15} ${KEY_WIDTH * 6.5}"
       xmlns="http://www.w3.org/2000/svg">
     <g id="row_AE" text-anchor="middle"> ${numberRow}  </g>
     <g id="row_AD" text-anchor="middle"> ${letterRow1} </g>

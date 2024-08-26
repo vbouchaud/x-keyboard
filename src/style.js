@@ -15,6 +15,12 @@ const translate = (x = 0, y = 0, offset) => {
   return `{ transform: translate(${dx}px, ${dy}px); }`;
 };
 
+const trantate = (r = 0, x = 0, y = 0, offset) => {
+  const dx = KEY_WIDTH * x + (offset ? KEY_PADDING : 0);
+  const dy = KEY_WIDTH * y + (offset ? KEY_PADDING : 0);
+  return `{ transform: translate(${dx}px, ${dy}px) rotate(${r}deg); }`;
+};
+
 const main = `
   rect, path {
     stroke: #666;
@@ -79,6 +85,157 @@ const classicGeometry = `
   .intlRo  #ShiftRight .ansi { display: none; }
   .intlRo  #ShiftRight .abnt,
   .intlRo  #IntlRo { display: block; }
+`;
+
+const splitGeometry = `
+  .specialKey .split,
+  .specialKey .voyager,
+  .voyager #row_AE .left #Backquote,
+  .voyager #row_AE .right #Equal,
+  .voyager #row_AE .right #Minus,
+  .voyager #row_AE .right #Backspace,
+  .voyager #row_AD .right #Backslash,
+  .voyager #row_AD .right #BracketLeft,
+  .voyager #row_AD .right #BracketRight,
+  .voyager #row_AC .right #Quote,
+  .voyager #row_AC .right #Enter,
+  .voyager #row_AC .right #Enter text,
+
+  .voyager #row_AD .left #Tab rect,
+  .voyager #row_AC .left #CapsLock rect,
+  .voyager #row_AB .left #ShiftLeft rect,
+
+  .voyager #row_AB .right #ShiftRight rect,
+
+  .voyager #row_AA .specialKey,
+  .voyager #Backslash rect,
+  .voyager #Space,
+  .voyager .specialKey .ansi
+  { display: none; }
+
+  .voyager #row_AE .left #Escape,
+  .voyager #row_AE .left #Escape .voyager,
+  .voyager #row_AD .left #Tab,
+  .voyager #row_AD .left #Tab .voyager,
+  .voyager #row_AC .left #CapsLock,
+  .voyager #row_AC .left #CapsLock .voyager,
+  .voyager #row_AB .left #ShiftLeft,
+  .voyager #row_AB .left #ShiftLeft .voyager,
+  .voyager #row_AE .right #Delete,
+  .voyager #row_AE .right #Delete .voyager,
+  .voyager #row_AD .right #Backspace,
+  .voyager #row_AD .right #Backspace .voyager,
+  .voyager #row_AC .right #Enter,
+  .voyager #row_AC .right #Enter .voyager,
+  .voyager #row_AB .right #ShiftRight,
+  .voyager #row_AB .right #ShiftRight .voyager,
+  .voyager #row_AA .left #Space,
+  .voyager #row_AA .left #Space .voyager,
+  .voyager #row_AA .left #Enter,
+  .voyager #row_AA .left #Enter .voyager,
+  .voyager #row_AA .right #Backspace,
+  .voyager #row_AA .right #Backspace .voyager,
+  .voyager #row_AA .right #Space,
+  .voyager #row_AA .right #Space .voyager
+  { display: block; }
+
+  .voyager #row_AD .left .specialKey .voyager ${translate(0.50)}
+  .voyager #row_AC .left .specialKey .voyager ${translate(0.75)}
+f  .voyager #Backslash ${translate(11.5)}
+
+  .voyager #ShiftLeft ${translate(1.25)}
+
+  .voyager #Digit2 ${translate(2, -0.2)}
+  .voyager #KeyW ${translate(2.5, -0.2)}
+  .voyager #KeyS ${translate(2.75, -0.2)}
+  .voyager #KeyX ${translate(3.25, -0.2)}
+
+  .voyager #Digit3 ${translate(3, -0.4)}
+  .voyager #KeyE ${translate(3.5, -0.4)}
+  .voyager #KeyD ${translate(3.75, -0.4)}
+  .voyager #KeyC ${translate(4.25, -0.4)}
+
+  .voyager #Digit4 ${translate(4, -0.2)}
+  .voyager #KeyR ${translate(4.5, -0.2)}
+  .voyager #KeyF ${translate(4.75, -0.2)}
+  .voyager #KeyV ${translate(5.25, -0.2)}
+
+  .voyager #Digit7 ${translate(7, -0.2)}
+  .voyager #KeyU ${translate(7.5, -0.2)}
+  .voyager #KeyJ ${translate(7.75, -0.2)}
+  .voyager #KeyM ${translate(8.25, -0.2)}
+
+  .voyager #Digit8 ${translate(8, -0.4)}
+  .voyager #KeyI ${translate(8.5, -0.4)}
+  .voyager #KeyK ${translate(8.75, -0.4)}
+  .voyager #Comma ${translate(9.25, -0.4)}
+
+  .voyager #Digit9 ${translate(9, -0.2)}
+  .voyager #KeyO ${translate(9.5, -0.2)}
+  .voyager #KeyL ${translate(9.75, -0.2)}
+  .voyager #Period ${translate(10.25, -0.2)}
+
+  .voyager #row_AA .left #Space       ${translate(6.5)}
+  .voyager #row_AA #Enter       ${translate(7.5, 0.10)}
+  .voyager #row_AA #Backspace   ${translate(5.5, 0.10)}
+  .voyager #row_AA .right #Space       ${translate(6.5)}
+
+  .split #row_AE       ${translate(1.50, 0.50, true)}
+  .split #row_AD       ${translate(1.00, 1.50, true)}
+  .split #row_AC       ${translate(0.75, 2.50, true)}
+  .split #row_AB       ${translate(0.25, 3.50, true)}
+  .split #row_AA       ${translate(0.50, 4.50, true)}
+
+  .split .left         ${translate(-1)}
+  .split .right        ${translate(1)}
+
+  .mod {
+    fill: #eee;
+    font-size: 14px
+  }
+
+  .layer {
+    fill: brown;
+    font-size: 14px
+  }
+
+  .layerKey {
+    fill: #e83
+  }
+
+  .dualKey {
+    fill: #666;
+  }
+
+  .voyager .right .dualKey.alt {
+    fill: #77d
+  }
+
+  .voyager .right .mod.alt {
+    fill: navy
+  }
+
+  .voyager .layer,
+  .voyager .layerKey,
+  .voyager .mod,
+  .voyager .dualKey {
+    display: block;
+  }
+
+  .split #row_AA .left {
+    transform-origin: top left;
+  }
+  .split #row_AA .left ${trantate(20, -1, -2.25)}
+
+  .split #row_AA .right {
+    transform-origin: top right;
+  }
+  .split #row_AA .right ${trantate(-20, 0.92, -2.64)}
+
+  .voyager #Delete text,
+  .voyager #Backspace text {
+    font-size: 14px;
+  }
 `;
 
 // ortholinear geometry: TypeMatrix (60%), OLKB (50%, 40%)
@@ -330,6 +487,7 @@ const style = `
   ${main}
   ${classicGeometry}
   ${orthoGeometry}
+  ${splitGeometry}
   ${cjkKeys}
   ${modifiers}
   ${themes}
