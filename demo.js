@@ -6,8 +6,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // keyboard state: these <select> element IDs match the x-keyboard properties
   // -- but the `layout` property requires a JSON fetch
-  const IDs = [ 'layout', 'geometry', 'platform', 'theme' ];
-  const setProp = (key, value) => {
+  const IDs = [
+    { key: 'layout', value: 'fr(ergol)' },
+    { key: 'geometry', value: 'voyager' },
+    { key: 'platform', value: 'linux' },
+    { key: 'theme', value: '' },
+  ];
+  const setProp = ({key, value: defaultVal}, val) => {
+    const value = defaultVal || val;
     if (key === 'layout') {
       if (value) {
         fetch(`layouts/${value}.json`)
@@ -22,7 +28,10 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       keyboard[key] = value;
     }
-    document.getElementById(key).value = value;
+    const element = document.getElementById(key)
+    if (element != null) {
+      element.value = value;
+    }
   };
 
   // store the keyboard state in the URL hash like it's 1995 again! :-)
@@ -40,10 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
       state[key] = hashState[i] || '';
     });
   };
-  IDs.forEach((key) => {
-    document.getElementById(key).addEventListener('change',
-      event => updateHashState(key, event.target.value));
-  });
   window.addEventListener('hashchange', applyHashState);
   applyHashState();
 
